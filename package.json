@@ -1,0 +1,19 @@
+{
+    "name": "web-ts",
+    "version": "1.0.0",
+    "description": "Typescript web project code scaffold base on Koa@2",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"no test specified\" && exit 0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/qixin1991/web-ts.git"
+    },
+    "bin": {
+        "web-ts": "index.js"
+    },
+    "author": "Qi Xin <me@qixin.io>",
+    "license": "ISC"
+}

@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "ES2017",
+        "module": "commonjs",
+        "sourceMap": true,
+        "outDir": "dist",
+        "rootDir": ".",
+        "strict": true,
+        "watch": true,
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "src/types/*"
+            ]
+        },
+        "typeRoots": [
+            "src/**/*"
+        ]
+    }
+}
