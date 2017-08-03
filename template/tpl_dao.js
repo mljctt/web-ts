@@ -5,7 +5,7 @@ let dao = {
     list: (params?: any): Promise<any> => {
         return new Promise(
             (resolve, reject) => {
-                mongo.findDocuments('$option', params, (results) => {
+                mongo.findDocuments('$option', params, (err, results) => {
                     resolve(results);
                 });
             });
@@ -13,7 +13,7 @@ let dao = {
     listAll: (params?: any): Promise<any> => {
         return new Promise(
             (resolve, reject) => {
-                mongo.findAllDocuments('$option', params, (docs) => {
+                mongo.findAllDocuments('$option', params, (err, docs) => {
                     resolve(docs);
                 });
             });
@@ -21,7 +21,7 @@ let dao = {
     get: (param?: any): Promise<any> => {
         return new Promise(
             (resolve, reject) => {
-                mongo.findDocument('$option', param, (doc) => {
+                mongo.findDocument('$option', param, (err, doc) => {
                     resolve(doc);
                 });
             });
