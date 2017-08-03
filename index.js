@@ -31,7 +31,7 @@ switch (operation) {
 }
 
 function usage_info() {
-    const usage = `Usage: web-zero operation [init | new | delete] option [module_name] [databse_type]\n\nExample:\n\t web-zero init \t\t\t Create a api project named current dir.\n\t web-zero new users \t\t Create src/routes/users.ts and src/dao/users.ts files.\n\t web-zero new users mysql \t Create users module with DB base on mysql.\n\t web-zero delete users \t\t Delete src/routes/users.ts and src/dao/users.ts files.`;
+    const usage = `Usage: web-ts operation [init | new | delete] option [module_name] [databse_type]\n\nExample:\n\t web-ts init \t\t\t Create a api project named current dir.\n\t web-ts new users \t\t Create src/routes/users.ts and src/dao/users.ts files.\n\t web-ts new users mysql \t Create users module with DB base on mysql.\n\t web-ts delete users \t\t Delete src/routes/users.ts and src/dao/users.ts files.`;
     console.log(usage);
 }
 
