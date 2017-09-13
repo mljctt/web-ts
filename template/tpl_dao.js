@@ -55,6 +55,19 @@ let dao = {
                     resolve(result);
                 });
             });
+    },
+    batchDelete: (ids: string[]): Promise<DeleteWriteOpResultObject> => {
+        let idArr: ObjectID[] = [];
+        for (let id of ids) {
+            idArr.push(new ObjectID(id));
+        }
+        return new Promise(
+            (resolve, reject) => {
+                mongo.removeDocument('$option', { _id: { $in: idArr } }, (err, result: DeleteWriteOpResultObject) => {
+                    if (err) reject("系统异常,批量删除失败!");
+                    resolve(result);
+                });
+            });
     }
 }
 export = dao;

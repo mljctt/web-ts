@@ -1,5 +1,6 @@
 module.exports = `import * as Router from 'koa-router';
 import * as dao from '../dao/$option';
+import { ObjectID } from 'mongodb';
 
 const router = new Router({
         prefix: '/$option'
@@ -28,7 +29,7 @@ router.delete('/:id', async ctx => {
     ctx.body = { code: 200, msg: 'ok' };
 });
 router.get('/:id', async ctx => {
-    let doc = await dao.get(ctx.params.id);
+    let doc = await dao.get({ _id: new ObjectID(ctx.params.id) });    
     ctx.body = { code: 200, data: doc };
 });
 
