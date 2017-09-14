@@ -63,7 +63,7 @@ let dao = {
         }
         return new Promise(
             (resolve, reject) => {
-                mongo.removeDocument('$option', { _id: { $in: idArr } }, (err, result: DeleteWriteOpResultObject) => {
+                mongo.removeDocuments('$option', { _id: { $in: idArr } }, (err, result: DeleteWriteOpResultObject) => {
                     if (err) reject("系统异常,批量删除失败!");
                     resolve(result);
                 });
