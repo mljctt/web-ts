@@ -47,6 +47,26 @@ let dao = {
                 });
             });
     },
+    batchUpdateById: (docs: any[]): Promise<boolean> => {
+        return new Promise(
+            (resolve, reject) => {
+                let db = mongo.getDB();
+                let bulk = db.collection('$option').initializeUnorderedBulkOp();
+                for (let doc of docs) {
+                    let id = doc._id;
+                    delete doc._id;
+                    bulk.find({ _id: new ObjectID(id) }).updateOne({ $set: doc });
+                }
+                bulk.execute((err, result) => {
+                    if (err) {
+                        console.error('--->更新失败! %s => %s', err.name, err.message);
+                        reject(new Error('系统异常,更新失败!'));
+                    } else {
+                        resolve(true);
+                    }
+                });
+            });
+    },
     delete: (id: string): Promise<DeleteWriteOpResultObject> => {
         return new Promise(
             (resolve, reject) => {

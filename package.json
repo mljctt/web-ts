@@ -1,6 +1,6 @@
 {
     "name": "web-ts",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Typescript web project code scaffold base on Koa@2",
     "main": "index.js",
     "scripts": {
