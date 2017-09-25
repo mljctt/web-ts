@@ -35,6 +35,15 @@ let dao = {
                 });
             });
     },
+    batchInsert: (docs: any[]): Promise<ObjectID[]> => {
+        return new Promise(
+            (resolve, reject) => {
+                mongo.insertDocuments('$option', docs, (err, result: InsertWriteOpResult) => {
+                    if (err) reject("系统异常，新增失败!");
+                    resolve(result.insertedIds);
+                });
+            });
+    },
     update: (doc: any): Promise<UpdateWriteOpResult> => {
         return new Promise(
             (resolve, reject) => {
