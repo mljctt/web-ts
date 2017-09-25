@@ -1,5 +1,5 @@
 module.exports = `import * as mongo from '../tools/mongo';
- import { ObjectID, InsertOneWriteOpResult, UpdateWriteOpResult, DeleteWriteOpResultObject } from 'mongodb';
+ import { ObjectID, InsertOneWriteOpResult, InsertWriteOpResult, UpdateWriteOpResult, DeleteWriteOpResultObject } from 'mongodb';
 
 let dao = {
     list: (params?: any): Promise<any> => {
