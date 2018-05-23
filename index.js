@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const fs = require('fs'),
     path = require('path'),
     tpl = require(path.join(__dirname, 'template', 'tpl.js')),
@@ -81,19 +82,29 @@ async function del_dao(option) {
 
 async function new_route(option) {
     await new Promise((resolve, reject) => {
-        fs.writeFile(path.join(pwd, 'src', 'routes', option + '.ts'), tpl.base_router.replace(/\$option/g, option), (err) => {
-            if (err)
-                throw err;
-            console.log(` ---> Create File\tsrc/routes/${option}.ts \tsuccess...`);
-            resolve();
-        });
+        if (db_type && db_type == 'mysql') {
+            fs.writeFile(path.join(pwd, 'src', 'routes', option + '.ts'), tpl.mysql_router.replace(/\$option/g, option), (err) => {
+                if (err)
+                    throw err;
+                console.log(` ---> Create File\tsrc/routes/${option}.ts\tsuccess...`);
+                resolve();
+            });
+        } else {
+            fs.writeFile(path.join(pwd, 'src', 'routes', option + '.ts'), tpl.base_router.replace(/\$option/g, option), (err) => {
+                if (err)
+                    throw err;
+                console.log(` ---> Create File\tsrc/routes/${option}.ts \tsuccess...`);
+                resolve();
+            });
+        }
     });
 }
 
 async function new_dao(option) {
     await new Promise((resolve, reject) => {
         if (db_type && db_type == 'mysql') {
-            fs.writeFile(path.join(pwd, 'src', 'dao', option + '.ts'), tpl.mysql_dao.replace(/\$option/g, option), (err) => {
+            let tableName = option.replace(/-/g, '_');
+            fs.writeFile(path.join(pwd, 'src', 'dao', option + '.ts'), tpl.mysql_dao.replace(/\$option/g, tableName), (err) => {
                 if (err)
                     throw err;
                 console.log(` ---> Create File\tsrc/dao/${option}.ts\tsuccess...`);
@@ -191,8 +202,8 @@ async function init_dir() {
 
 async function init_file() {
     /**
-    * create app.ts and write tpl code into it.
-    */
+     * create app.ts and write tpl code into it.
+     */
     await new Promise((resolve, reject) => {
         fs.writeFile(path.join(pwd, 'src', 'app.ts'), tpl.app, (err) => {
             if (err)
@@ -212,8 +223,8 @@ async function init_file() {
     });
 
     /**
-    * create middleware/log.ts
-    */
+     * create middleware/log.ts
+     */
     await new Promise((resolve, reject) => {
         fs.writeFile(path.join(pwd, 'src', 'middleware', 'log.ts'), tpl.log, (err) => {
             if (err)
@@ -368,14 +379,14 @@ async function init_file() {
  */
 async function init_dependencies() {
     pkg.devDependencies = {
-        "@types/ioredis": "0.0.24",
-        "@types/koa": "^2.0.39",
-        "@types/koa-bodyparser": "^3.0.23",
-        "@types/moment-timezone": "^0.2.34",
-        "@types/mongodb": "^2.2.7",
-        "@types/node": "^8.0.17",
-        "gulp": "^3.9.1"
-    },
+            "@types/ioredis": "0.0.24",
+            "@types/koa": "^2.0.39",
+            "@types/koa-bodyparser": "^3.0.23",
+            "@types/moment-timezone": "^0.2.34",
+            "@types/mongodb": "^2.2.7",
+            "@types/node": "^8.0.17",
+            "gulp": "^3.9.1"
+        },
         pkg.dependencies = {
             "grpc-sdk-client": "^2.0.3",
             "ioredis": "^3.1.2",

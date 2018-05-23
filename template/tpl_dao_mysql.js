@@ -1,40 +1,40 @@
-module.exports = `const mysql = require('./mysql');
+module.exports = `import * as mysql from '../tools/mysql';
 
-module.exports = {
-    list: (params) => {
+let dao = {
+    list: (params: any) => {
         return new Promise(
             (resolve, reject) => {
-                mysql.list('$option', params, (err, res) => {
+                mysql.list('$option', params, (err: any, res: any) => {
                     if (err) reject(new Error('查询失败，系统异常!'));
                     resolve(res);
                 });
             }
         )
     },
-    get: (params) => {
+    get: (params: any) => {
         return new Promise(
             (resolve, reject) => {
-                mysql.query('$option', params, (err, res) => {
+                mysql.findOne('$option', params, (err: any, res: any) => {
                     if (err) reject(new Error('查询失败，系统异常!'));
                     resolve(res);
                 })
             });
     },
-    create: (params) => {
+    create: (params: any) => {
         return new Promise(
             (resolve, reject) => {
-                mysql.insert('$option', params, (err, res) => {
+                mysql.insert('$option', params, (err: any, res: any) => {
                     if (err) reject(new Error("保存失败，系统异常!"));
                     resolve(res);
                 })
             }
         )
     },
-    update: (params) => {
+    update: (params: any) => {
         return new Promise(
             (resolve, reject) => {
                 if (!params.id) reject(new Error('id 为必传参数'));
-                mysql.updateById('$option', params, (err, res) => {
+                mysql.updateById('$option', params, (err: any, res: any) => {
                     if (err) reject(new Error("更新失败，系统异常!"));
                     resolve(res);
                 });
@@ -44,16 +44,17 @@ module.exports = {
     /**
      * soft delete.
     */
-    delete: (id) => {
+    delete: (id: Number) => {
         return new Promise(
             (resolve, reject) => {
-                let params = { id: id, status: -1 };
                 if (!id) reject(new Error('id 为必传参数'));
-                mysql.updateById('$option', params, (err, res) => {
+                mysql.updateById('$option', id, (err: any, res: any) => {
                     if (err) reject(new Error("删除失败，系统异常!"));
                     resolve(res);
                 });
             }
         )
     }
-}`;
+}
+export = dao;
+`;
