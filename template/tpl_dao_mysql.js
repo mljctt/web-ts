@@ -48,7 +48,17 @@ let dao = {
         return new Promise(
             (resolve, reject) => {
                 if (!id) reject(new Error('id 为必传参数'));
-                mysql.updateById('$option', id, (err: any, res: any) => {
+                mysql.deleteById('$option', id, (err: any, res: any) => {
+                    if (err) reject(new Error("删除失败，系统异常!"));
+                    resolve(res);
+                });
+            }
+        )
+    },
+    batchDelete: (params: any) => {
+        return new Promise(
+            (resolve, reject) => {
+                mysql.deleteBySpecifiedFields('$option', params, (err: any, res: any) => {
                     if (err) reject(new Error("删除失败，系统异常!"));
                     resolve(res);
                 });
